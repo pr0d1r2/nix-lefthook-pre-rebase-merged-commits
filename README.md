@@ -12,7 +12,7 @@ Prevents accidental duplicate commits by warning when commits from the current b
 
 ### Option A: Lefthook remote (recommended)
 
-Add to your `lefthook.yml` — no flake input needed, just the wrapper binary in your devShell:
+Add to your `lefthook.yml` - no flake input needed, just the wrapper binary in your devShell:
 
 ```yaml
 remotes:
@@ -58,7 +58,7 @@ export LEFTHOOK_PRE_REBASE_MERGED_COMMITS_TIMEOUT=30
 
 ## Development
 
-The repo includes an `.envrc` for [direnv](https://direnv.net/) — entering the directory automatically loads the devShell with all dependencies:
+The repo includes an `.envrc` for [direnv](https://direnv.net/) - entering the directory automatically loads the devShell with all dependencies:
 
 ```bash
 cd nix-lefthook-pre-rebase-merged-commits  # direnv loads the flake

@@ -3,7 +3,7 @@
 # Warns when commits from the branch already appear in the upstream,
 # preventing accidental duplicate commits from rebasing.
 # Usage: lefthook-pre-rebase-merged-commits [upstream] [branch]
-# NOTE: sourced by writeShellApplication — no shebang or set needed.
+# NOTE: sourced by writeShellApplication - no shebang or set needed.
 
 upstream="${1:-HEAD}"
 branch="${2:-HEAD}"
