@@ -1,0 +1,33 @@
+#!/usr/bin/env bats
+
+setup() {
+    load "${BATS_LIB_PATH}/bats-support/load.bash"
+    load "${BATS_LIB_PATH}/bats-assert/load.bash"
+
+    TMP="$BATS_TEST_TMPDIR"
+
+    # Create a test repo with some history
+    git init "$TMP/repo" >/dev/null 2>&1
+    cd "$TMP/repo"
+    git config user.email "test@test.com"
+    git config user.name "Test"
+    echo "initial" > file.txt
+    git add file.txt
+    git commit -m "Initial commit" >/dev/null 2>&1
+}
+
+@test "no merged commits exits 0" {
+    cd "$TMP/repo"
+    git checkout -b feature >/dev/null 2>&1
+    echo "new" > new.txt
+    git add new.txt
+    git commit -m "Feature commit" >/dev/null 2>&1
+    run lefthook-pre-rebase-merged-commits main feature
+    assert_success
+}
+
+@test "defaults to HEAD when no args" {
+    cd "$TMP/repo"
+    run lefthook-pre-rebase-merged-commits
+    assert_success
+}

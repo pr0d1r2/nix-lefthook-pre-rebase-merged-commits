@@ -1,0 +1,5 @@
+---
+pre-rebase:
+  commands:
+    pre-rebase-merged-commits:
+      run: timeout ${LEFTHOOK_PRE_REBASE_MERGED_COMMITS_TIMEOUT:-10} lefthook-pre-rebase-merged-commits {1} {2}
