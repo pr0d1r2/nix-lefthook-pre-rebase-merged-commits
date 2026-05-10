@@ -27,6 +27,20 @@ setup() {
     assert_success
 }
 
+@test "cherry-picked commits exits 1" {
+    cd "$TMP/repo" || return
+    git checkout -b feature >/dev/null 2>&1
+    echo "new" > new.txt
+    git add new.txt
+    git commit -m "Feature commit" >/dev/null 2>&1
+    # Cherry-pick the feature commit into the default branch
+    git checkout "$DEFAULT_BRANCH" >/dev/null 2>&1
+    git cherry-pick feature >/dev/null 2>&1
+    run lefthook-pre-rebase-merged-commits "$DEFAULT_BRANCH" feature
+    assert_failure
+    assert_output --partial "already appear in"
+}
+
 @test "defaults to HEAD when no args" {
     cd "$TMP/repo" || return
     run lefthook-pre-rebase-merged-commits
