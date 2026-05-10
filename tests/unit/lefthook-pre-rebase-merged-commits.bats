@@ -33,8 +33,11 @@ setup() {
     echo "new" > new.txt
     git add new.txt
     git commit -m "Feature commit" >/dev/null 2>&1
-    # Cherry-pick the feature commit into the default branch
+    # Add diverging commit on default branch so cherry-pick doesn't fast-forward
     git checkout "$DEFAULT_BRANCH" >/dev/null 2>&1
+    echo "other" > other.txt
+    git add other.txt
+    git commit -m "Other work" >/dev/null 2>&1
     git cherry-pick feature >/dev/null 2>&1
     run lefthook-pre-rebase-merged-commits "$DEFAULT_BRANCH" feature
     assert_failure
