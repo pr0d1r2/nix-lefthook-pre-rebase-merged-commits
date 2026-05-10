@@ -8,7 +8,7 @@
 upstream="${1:-HEAD}"
 branch="${2:-HEAD}"
 
-merged=$(git log --oneline --cherry-pick --right-only "$upstream"..."$branch" 2>/dev/null | wc -l | tr -d ' ')
+merged=$(git log --oneline --cherry-mark --right-only "$upstream"..."$branch" 2>/dev/null | grep -c '^=' || true)
 
 if [ "$merged" -gt 0 ]; then
     echo "Warning: $merged commit(s) from this branch already appear in $upstream"
